@@ -6,6 +6,8 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import SignUp from "./screens/SignUp";
 
+import Layout from "./components/Layout";
+
 /* styled-component */
 import { ThemeProvider } from "styled-components";
 
@@ -25,7 +27,15 @@ function App() {
         <Routes>
           <Route
             path={routes.home}
-            element={isLoggedIn ? <Home /> : <Login />}
+            element={
+              isLoggedIn ? (
+                <Layout>
+                  <Home />
+                </Layout>
+              ) : (
+                <Login />
+              )
+            }
           />
           <Route path={routes.profile} element={<Profile />} />
           <Route

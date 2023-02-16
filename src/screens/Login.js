@@ -7,6 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
+import { isLoggedInVar } from "../apollo";
+
 const Title = styled.h1`
   color: ${(props) => props.theme.fontColor};
 `;
@@ -84,7 +86,7 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.div`
+const Button = styled.input`
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -128,6 +130,12 @@ const FacebookLogin = styled.div`
   }
 `;
 
+const onSubmit = (event) => {
+  event.preventDefault();
+  console.log("login click");
+  isLoggedInVar(true);
+};
+
 function Login() {
   return (
     <Container>
@@ -135,15 +143,13 @@ function Login() {
         <TopBox>
           <Logo></Logo>
 
-          <form>
+          <form onSubmit={onSubmit}>
             <Input
               type="email"
               placeholder="전화번호, 사용자 이름 또는 이메일"
             />
-            <Input type="password " placeholder="비밀번호" />
-            <Button type="submit" value="Log In">
-              로그인
-            </Button>
+            <Input type="password" placeholder="비밀번호" />
+            <Button type="submit" value="로그인" />
           </form>
 
           <Separator>
