@@ -1,79 +1,113 @@
 import styled from "styled-components";
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+import Avatar from "components/Avartar";
+import Comments from "../components/Comments";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  faBookmark,
+  faComment,
+  faHeart as NotSolidHeart,
+  faPaperPlane,
+} from "@fortawesome/free-regular-svg-icons";
+
+import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 
 const FeedContainer = styled.div`
-  width: 100%;
-  max-width: 630px;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  margin-bottom: 60px;
+  max-width: 650px;
 `;
+
 const FeedHeader = styled.div`
   display: flex;
+  padding: 15px;
+  align-items: center;
+  border-bottom: 1px solid rgb(239, 239, 239);
+`;
+
+const Nickname = styled.div`
+  margin-left: 10px;
+  font-weight: 600;
+`;
+
+const FeedPhoto = styled.img`
   width: 100%;
-  margin: 10px;
+  max-width: 100%;
+`;
 
-  .profile_box {
-    width: 30px;
-    height: 30px;
-    border-radius: 70%;
-    overflow: hidden;
+const FeedActionContainer = styled.div`
+  padding: 12px 15px;
+`;
+
+const FeedWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-betwwen;
+  div {
+    display: flex;
+    align-items: center;
   }
-  .profile_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .profile_name {
-    margin: 0 10px;
-    font-weight: 600;
+  svg {
+    font-size: 20px;
   }
 `;
 
-const FeedPhoto = styled.div`
-  height: 500px;
-
-  .feed_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+const FeedAction = styled.div`
+  margin-right: 10px;
+  cursor: pointer;
 `;
-const FeedActions = styled.div``;
-const Comments = styled.div``;
+
+const Likes = styled.span`
+  font-weight: 600;
+  margin-top: 15px;
+  display: block;
+`;
 
 function Home() {
   return (
-    <Container>
-      <FeedContainer>
-        <FeedHeader>
-          <div className="profile_box">
-            <img
-              className="profile_img"
-              src="https://yt3.googleusercontent.com/ytc/AL5GRJUSZHa2spL-y0DiSJyd2hQ5YdJWs-ZzVAcun3ivWQ=s900-c-k-c0x00ffffff-no-rj"
-            />
+    <FeedContainer>
+      <FeedHeader>
+        <Avatar
+          lg
+          url="https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg"
+        />
+        <Nickname>Nickname</Nickname>
+      </FeedHeader>
+      <FeedPhoto src="https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg" />
+
+      <FeedActionContainer>
+        <FeedWrapper>
+          <div>
+            <FeedAction>
+              <FontAwesomeIcon
+                style={{ color: true ? "tomato" : "inherit" }}
+                icon={true ? SolidHeart : NotSolidHeart}
+              />
+            </FeedAction>
+            <FeedAction>
+              <FontAwesomeIcon icon={faComment} />
+            </FeedAction>
+            <FeedAction>
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </FeedAction>
           </div>
-          <div className="profile_name">Nickname</div>
-          <div>Time</div>
-        </FeedHeader>
-        <FeedPhoto>
-          <img
-            className="feed_img"
-            src="https://cdnweb01.wikitree.co.kr/webdata/editor/202007/16/img_20200716161918_e69bae9b.webp"
-          />
-        </FeedPhoto>
-        <FeedActions>
-          <div>Actions</div>
-        </FeedActions>
-        <Comments>
-          <div>Comments</div>
-        </Comments>
-      </FeedContainer>
-    </Container>
+
+          <div>
+            <FeedAction>
+              <FontAwesomeIcon icon={faBookmark} />
+            </FeedAction>
+          </div>
+        </FeedWrapper>
+        <Likes>1 likes</Likes>
+        <Comments />
+      </FeedActionContainer>
+    </FeedContainer>
   );
 }
 
