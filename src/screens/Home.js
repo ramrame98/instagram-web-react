@@ -1,113 +1,74 @@
-import styled from "styled-components";
-
-import Avatar from "components/Avartar";
-import Comments from "../components/Comments";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-  faBookmark,
-  faComment,
-  faHeart as NotSolidHeart,
-  faPaperPlane,
-} from "@fortawesome/free-regular-svg-icons";
-
-import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
-
-const FeedContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  margin-bottom: 60px;
-  max-width: 650px;
-`;
-
-const FeedHeader = styled.div`
-  display: flex;
-  padding: 15px;
-  align-items: center;
-  border-bottom: 1px solid rgb(239, 239, 239);
-`;
-
-const Nickname = styled.div`
-  margin-left: 10px;
-  font-weight: 600;
-`;
-
-const FeedPhoto = styled.img`
-  width: 100%;
-  max-width: 100%;
-`;
-
-const FeedActionContainer = styled.div`
-  padding: 12px 15px;
-`;
-
-const FeedWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-betwwen;
-  div {
-    display: flex;
-    align-items: center;
-  }
-  svg {
-    font-size: 20px;
-  }
-`;
-
-const FeedAction = styled.div`
-  margin-right: 10px;
-  cursor: pointer;
-`;
-
-const Likes = styled.span`
-  font-weight: 600;
-  margin-top: 15px;
-  display: block;
-`;
+import Feed from "components/Feed";
 
 function Home() {
+  const data = [
+    {
+      id: 1,
+      file: "https://mblogthumb-phinf.pstatic.net/20160421_74/ulmia2040_1461218132845QRap9_JPEG/20160421_134429.jpg?type=w800",
+      caption: "내용입니다",
+      user: {
+        username: "development",
+        profileImg:
+          "https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg",
+      },
+      likes: 0,
+      commentNumber: 33,
+      isLiked: false,
+      comments: [
+        {
+          id: 1,
+          payload: "첫 번째 댓글",
+          user: {
+            username: "nickname2",
+            profileImg:
+              "http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg",
+          },
+        },
+        {
+          id: 2,
+          payload: "두 번째 댓글",
+          user: {
+            username: "grey_cat",
+            profileImg:
+              "http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg",
+          },
+        },
+      ],
+    },
+    {
+      id: 2,
+      file: "https://mblogthumb-phinf.pstatic.net/20160421_74/ulmia2040_1461218132845QRap9_JPEG/20160421_134429.jpg?type=w800",
+      caption: "내용입니다",
+      user: {
+        username: "development2",
+        profileImg:
+          "https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg",
+      },
+      likes: 123,
+      commentNumber: 33,
+      isLiked: true,
+    },
+    {
+      id: 3,
+      file: "https://mblogthumb-phinf.pstatic.net/20160421_74/ulmia2040_1461218132845QRap9_JPEG/20160421_134429.jpg?type=w800",
+      caption: "내용입니다",
+      user: {
+        username: "development",
+        profileImg:
+          "https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg",
+      },
+      likes: 93,
+      commentNumber: 33,
+      isLiked: true,
+    },
+  ];
+
   return (
-    <FeedContainer>
-      <FeedHeader>
-        <Avatar
-          lg
-          url="https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg"
-        />
-        <Nickname>Nickname</Nickname>
-      </FeedHeader>
-      <FeedPhoto src="https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg" />
-
-      <FeedActionContainer>
-        <FeedWrapper>
-          <div>
-            <FeedAction>
-              <FontAwesomeIcon
-                style={{ color: true ? "tomato" : "inherit" }}
-                icon={true ? SolidHeart : NotSolidHeart}
-              />
-            </FeedAction>
-            <FeedAction>
-              <FontAwesomeIcon icon={faComment} />
-            </FeedAction>
-            <FeedAction>
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </FeedAction>
-          </div>
-
-          <div>
-            <FeedAction>
-              <FontAwesomeIcon icon={faBookmark} />
-            </FeedAction>
-          </div>
-        </FeedWrapper>
-        <Likes>1 likes</Likes>
-        <Comments />
-      </FeedActionContainer>
-    </FeedContainer>
+    <div>
+      {data?.map((feed) => (
+        <Feed key={feed.id} {...feed} />
+      ))}
+    </div>
   );
 }
 

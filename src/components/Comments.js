@@ -19,26 +19,22 @@ const CommentAuthor = styled.span`
 `;
 const CommentContent = styled.span``;
 
-function Comments() {
+function Comments({ author, caption, comments, commentNumber }) {
   return (
-    <div>
-      <CommentsContainer>
-        <CommentContainer>
-          <CommentAuthor>작성자</CommentAuthor>
-          <CommentContent>멍멍</CommentContent>
-        </CommentContainer>
-        <CommentCount>댓글 2개 모두 보기</CommentCount>
+    <CommentsContainer>
+      <CommentContainer>
+        <CommentAuthor>{author}</CommentAuthor>
+        <CommentContent>{caption}</CommentContent>
+      </CommentContainer>
+      <CommentCount>댓글 {commentNumber}개 모두 보기</CommentCount>
 
+      {comments?.map((data) => (
         <CommentContainer>
-          <CommentAuthor>댓글작성자1</CommentAuthor>
-          <CommentContent>댓글 1</CommentContent>
+          <CommentAuthor>{data.user.username}</CommentAuthor>
+          <CommentContent>{data.payload}</CommentContent>
         </CommentContainer>
-        <CommentContainer>
-          <CommentAuthor>댓글작성자2</CommentAuthor>
-          <CommentContent>댓글 2</CommentContent>
-        </CommentContainer>
-      </CommentsContainer>
-    </div>
+      ))}
+    </CommentsContainer>
   );
 }
 export default Comments;
