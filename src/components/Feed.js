@@ -78,7 +78,6 @@ function Feed({
   isLiked,
   comments,
 }) {
-  console.log("user", user.profileImg);
   return (
     <FeedContainer key={id}>
       <FeedHeader>

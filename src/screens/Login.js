@@ -132,7 +132,6 @@ const FacebookLogin = styled.div`
 
 const onSubmit = (event) => {
   event.preventDefault();
-  console.log("login click");
   isLoggedInVar(true);
 };
 
