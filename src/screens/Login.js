@@ -8,6 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 import { isLoggedInVar } from "../apollo";
+import { useState } from "react";
+import { userNameLogin } from "../api";
+import { useMutation } from "@tanstack/react-query";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.fontColor};
@@ -89,10 +92,9 @@ const Input = styled.input`
 const Button = styled.input`
   width: 100%;
   border: none;
-  border-radius: 8px;
+  border-radius: 3px;
   margin-top: 12px;
   background-color: #0095f6;
-  opacity: 0.7;
   color: white;
   text-align: center;
   padding: 8px 0px;
@@ -130,12 +132,40 @@ const FacebookLogin = styled.div`
   }
 `;
 
-const onSubmit = (event) => {
-  event.preventDefault();
-  isLoggedInVar(true);
-};
-
 function Login() {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const mutation = useMutation(userNameLogin, {
+    onMutate: () => {
+      console.log("mutation start...");
+    },
+    onSuccess: () => {
+      console.log("API CALL SUCCESS");
+      isLoggedInVar(true);
+    },
+    onError: () => {
+      console.log("API CALL ERROR");
+    },
+  });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log("login click");
+    mutation.mutate({ username, password }); // mutation 호출 | API call할 때의 매개변수
+  };
+
+  const onChange = (event) => {
+    const { name, value } = event.currentTarget;
+    console.log(name, value);
+
+    if (name === "username") {
+      setUserName(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -144,10 +174,21 @@ function Login() {
 
           <form onSubmit={onSubmit}>
             <Input
-              type="email"
-              placeholder="전화번호, 사용자 이름 또는 이메일"
+              type="text"
+              name="username"
+              onChange={onChange}
+              value={username}
+              placeholder="유저네임"
+              required
             />
-            <Input type="password" placeholder="비밀번호" />
+            <Input
+              type="password"
+              name="password"
+              onChange={onChange}
+              value={password}
+              placeholder="비밀번호"
+              required
+            />
             <Button type="submit" value="로그인" />
           </form>
 

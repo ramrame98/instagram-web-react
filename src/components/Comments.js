@@ -19,7 +19,7 @@ const CommentAuthor = styled.span`
 `;
 const CommentContent = styled.span``;
 
-function Comments({ author, caption, comments, commentNumber }) {
+function Comments({ author, caption, reviews, commentNumber }) {
   return (
     <CommentsContainer>
       <CommentContainer>
@@ -28,10 +28,10 @@ function Comments({ author, caption, comments, commentNumber }) {
       </CommentContainer>
       <CommentCount>댓글 {commentNumber}개 모두 보기</CommentCount>
 
-      {comments?.map((data) => (
-        <CommentContainer>
-          <CommentAuthor>{data.user.username}</CommentAuthor>
-          <CommentContent>{data.payload}</CommentContent>
+      {reviews?.map((comment) => (
+        <CommentContainer key={comment.id}>
+          <CommentAuthor>{comment.user.username}</CommentAuthor>
+          <CommentContent>{comment.rcaption}</CommentContent>
         </CommentContainer>
       ))}
     </CommentsContainer>

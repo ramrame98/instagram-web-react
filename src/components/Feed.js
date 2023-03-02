@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import Avatar from "components/Avartar";
 import Comments from "../components/Comments";
+import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -47,7 +48,7 @@ const FeedActionContainer = styled.div`
 const FeedWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-betwwen;
+  justify-content: space-between;
   div {
     display: flex;
     align-items: center;
@@ -70,21 +71,23 @@ const Likes = styled.span`
 
 function Feed({
   id,
-  file,
+  contentImg,
   caption,
   user,
-  likes,
-  commentNumber,
+  likesNum,
+  reviewsNum,
   isLiked,
-  comments,
+  reviews,
 }) {
   return (
     <FeedContainer key={id}>
       <FeedHeader>
         <Avatar lg url={user.profileImg} />
-        <Nickname>{user.username}</Nickname>
+        <Link to={`/profile/${user.username}`}>
+          <Nickname>{user.username}</Nickname>
+        </Link>
       </FeedHeader>
-      <FeedPhoto src={file} />
+      <FeedPhoto src={contentImg} />
 
       <FeedActionContainer>
         <FeedWrapper>
@@ -109,14 +112,14 @@ function Feed({
             </FeedAction>
           </div>
         </FeedWrapper>
-        <Likes>{likes} likes</Likes>
+        <Likes>{likesNum} likes</Likes>
 
         <Comments
           key={id}
           author={user.username} // 작성자
           caption={caption} // 작성내용
-          comments={comments} // 댓글들 (댓글작성자, 댓글내용)
-          commentNumber={commentNumber} // 댓글 갯수
+          reviews={reviews} // 댓글들 (댓글작성자, 댓글내용)
+          commentNumber={reviewsNum} // 댓글 갯수
         />
       </FeedActionContainer>
     </FeedContainer>

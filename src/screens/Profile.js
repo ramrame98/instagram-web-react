@@ -1,5 +1,8 @@
 import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
+import { getUserFeeds } from "../api";
+import { useLocation, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -86,13 +89,22 @@ const Icon = styled.span`
 `;
 
 function Profile() {
+  // const data = useLocation();
+  // console.log("data", data);
+
+  const { username } = useParams();
+  console.log("username", username);
+
+  const { data } = useQuery(["feeds/", username], getUserFeeds);
+  console.log("data", data);
+
   return (
     <>
       <Header>
-        <ProfileImg src="https://static.vecteezy.com/system/resources/previews/004/244/268/original/cute-dog-cartoon-character-illustration-free-vector.jpg" />
+        <ProfileImg src={data[0].user.profileImg} />
         <ProfileInfo>
           <Row>
-            <Username>Ramram</Username>
+            <Username>{data[0].user.username}</Username>
             <FollowBtn>팔로우</FollowBtn>
           </Row>
           <Row>
@@ -102,24 +114,26 @@ function Profile() {
             <div>팔로잉수</div>
           </Row>
           <Row>
-            <div>소개글</div>
+            <div>{data[0].user.profileIntroduce}</div>
           </Row>
         </ProfileInfo>
       </Header>
 
       <Contents>
-        <Feed bg="https://mblogthumb-phinf.pstatic.net/20160421_74/ulmia2040_1461218132845QRap9_JPEG/20160421_134429.jpg?type=w800">
-          <Icons>
-            <Icon>
-              <FontAwesomeIcon icon={faHeart} />
-              123
-            </Icon>
-            <Icon>
-              <FontAwesomeIcon icon={faComment} />
-              100
-            </Icon>
-          </Icons>
-        </Feed>
+        {data?.map((feed) => (
+          <Feed bg={feed.contentImg}>
+            <Icons>
+              <Icon>
+                <FontAwesomeIcon icon={faHeart} />
+                {feed.likesNum}
+              </Icon>
+              <Icon>
+                <FontAwesomeIcon icon={faComment} />
+                {feed.reviewsNum}
+              </Icon>
+            </Icons>
+          </Feed>
+        ))}
       </Contents>
     </>
   );
